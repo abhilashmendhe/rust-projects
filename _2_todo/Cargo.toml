@@ -1,0 +1,10 @@
+[package]
+name = "_2_todo"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+chrono = "0.4.38"
+colored = "2.1.0"
+once_cell = "1.19.0"
+rusqlite = "0.31.0"

@@ -1,0 +1,10 @@
+BEGIN TRANSACTION;
+
+CREATE TABLE IF NOT EXISTS "tasks" (
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "name" TEXT NOT NULL,
+    "done" BOOLEAN,
+    "taskdate" DATE NULL
+);
+
+COMMIT;
