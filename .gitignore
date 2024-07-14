@@ -2,4 +2,9 @@ _1_cli/target/*
 _2_todo/target/*
 _3_countries_data/target/*
 _4_fetch_news/target/*
-tut
+//tut
+//tut/_[0-9]+_[a-zA-Z]*/target/*
+//tut/_1_sqlite_example/target/*
+tut/_[0-9]*/target/*
+tut/_8_read_csv/yellow_tripdata_2021-01.csv
+
