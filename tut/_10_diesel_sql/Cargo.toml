@@ -1,0 +1,8 @@
+[package]
+name = "_10_diesel_sql"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+diesel = { version = "2.2.1", features = ["sqlite"] }
+dotenv = "0.15.0"

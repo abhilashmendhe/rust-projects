@@ -1,0 +1,22 @@
+use serde::{Deserialize, Serialize};
+
+
+#[derive(Debug,Deserialize,Serialize)]
+struct IrisRow {
+    sepal_length: f64, 
+    sepal_width: f64,
+    petal_length: f64, 
+    petal_width: f64,
+    species: String,
+}
+
+fn main() {
+    // Read a csv file into an array of IrisRow?
+    let mut csv_reader = csv::Reader::from_path("iris.csv").unwrap();
+    let mut iris_rows = csv_reader
+                                    .deserialize::<IrisRow>()
+                                    .map(|r| r.unwrap())
+                                    .collect::<Vec<IrisRow>>();
+
+    println!("{:?}",iris_rows.len());
+}
