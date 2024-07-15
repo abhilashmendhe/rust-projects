@@ -4,6 +4,9 @@ _3_countries_data/target/*
 _4_fetch_news/target/*
 _5_bst/target/*
 _6_trie/target/*
+_7_tic_tac_toe/target/*
+_8_lru_cache/target/*
+_9_SOLID/_[0-9]*/target/*
 //tut
 //tut/_[0-9]+_[a-zA-Z]*/target/*
 //tut/_1_sqlite_example/target/*

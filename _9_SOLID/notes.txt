@@ -1,0 +1,19 @@
+SOLID
+-----
+
+It is a design level principle to achieve
+    * S - Single Responsibility
+    * O - Open-closed principle
+    * L - Liscov substituion principle
+    * I - Interface segregation principle
+    * D - Dependency Inversion principle
+
+Benefits of SOLID Principles
+* Avoid duplicate code.
+* Easy to maintain.
+* Easy to understand.
+* Flexible software.
+* Reduce complexity.
+* Loose - Coupling.
+* Code maintainability.
+* Dependency management.
