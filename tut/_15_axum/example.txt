@@ -1,0 +1,19 @@
+/*
+    To run pgcli - pgcli -h localhost -p 5432 -U truuser -d ezytutors
+
+    To run docker -  docker run --name mypostgres -e POSTGRES_PASSWORD=Asimov@1234 -p 5432:5432 -d postgres
+
+    To run existing docker images - docker start <name>
+
+    ________________________________________________________
+
+    Steps to create user and grant privileges
+    --------------------------------------------
+    CREATE DATABASE EXAMPLE_DB;
+    CREATE USER EXAMPLE_USER WITH ENCRYPTED PASSWORD 'Sup3rS3cret';
+    GRANT ALL PRIVILEGES ON DATABASE EXAMPLE_DB TO EXAMPLE_USER;
+    \c EXAMPLE_DB postgres
+    # You are now connected to database "EXAMPLE_DB" as user "postgres".
+    GRANT ALL ON SCHEMA public TO EXAMPLE_USER;
+
+*/

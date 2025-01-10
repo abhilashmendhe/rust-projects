@@ -1,0 +1,20 @@
+[package]
+name = "_15_axum"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name="twillo_tut"
+path="src/twillo_tut/main.rs"
+
+[[bin]]
+name="twillo_tut_db"
+path="src/twillo_tut_db/main.rs"
+
+[dependencies]
+axum = "0.8.1"
+dotenv = "0.15.0"
+serde = { version = "1.0.217", features = ["derive"] }
+serde_json = "1.0.135"
+sqlx = { version = "0.8.3", features = ["runtime-tokio", "postgres"] }
+tokio = { version = "1.42.0", features = ["full"] }
