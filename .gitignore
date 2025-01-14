@@ -7,6 +7,7 @@ _6_trie/target/*
 _7_tic_tac_toe/target/*
 _8_lru_cache/target/*
 _9_SOLID/_[0-9]*/target/*
+_13_*/target/*
 //tut
 //tut/_[0-9]+_[a-zA-Z]*/target/*
 //tut/_1_sqlite_example/target/*

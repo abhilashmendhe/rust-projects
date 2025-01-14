@@ -1,0 +1,22 @@
+[package]
+name = "_14_libp2p"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "_1_ping"
+path = "src/_1_ping/main.rs"
+
+[[bin]]
+name = "_2_mdns"
+path = "src/_2_mdns/main.rs"
+
+[[bin]]
+name = "_3_chat"
+path = "src/_3_chat/main.rs"
+
+[dependencies]
+libp2p = { version = "0.54.1", features = ["tcp", "tls", "dns", "tokio", "noise", "yamux", "websocket", "ping", "macros", "mdns", "gossipsub", "quic"] }
+tokio = { version = "1.42.0", features = ["full"] }
+futures = "0.3.21"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
