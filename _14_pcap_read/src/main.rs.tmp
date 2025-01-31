@@ -1,0 +1,95 @@
+/*
+https://wiki.wireshark.org/Development/LibpcapFileFormat
+https://www.ietf.org/archive/id/draft-gharris-opsawg-pcap-01.html#name-introduction
+*/
+
+// use pcap::read_market::read_pfile;
+
+use chrono::{Date, DateTime, Datelike, FixedOffset, Local, NaiveDate, NaiveDateTime, TimeZone, Timelike, Utc};
+use chrono_tz::{Europe::Paris, Japan};
+
+mod pcap;
+fn main() -> Result<(), Box<dyn std::error::Error>>{
+
+    // let fpath = std::env::args().nth(1).unwrap();
+    // read_pfile(&fpath)?;
+
+    // let utc = Utc::now();
+    
+    // let s = "08595997".to_string();
+    
+    let s = "08595997".to_string();
+    
+    let timestamp = 1297814400;
+    let timestamp_frac = 773988000;
+    let dt = DateTime
+                            ::from_timestamp(timestamp, timestamp_frac)
+                            .unwrap()
+                            .with_timezone(&FixedOffset::east_opt(9 * 3600).unwrap());
+                            // .to_utc();
+    println!("{}", dt);
+    
+    // let indi_timezone = Local::from_utc_datetime(&dt, utc);
+    // let ind_tz = Utc::offset_from_utc_date("Asia");
+    // println!("{}", dt);
+    // // let pt = Japan.timestamp_opt(timestamp, timestamp_frac);
+    let nd = NaiveDate::
+                            from_ymd_opt(2016, 02, 16)
+                            .unwrap()
+                            .and_hms_micro_opt(08, 59, 55, 97)
+                            .unwrap()
+                            .and_utc()
+                            .fixed_offset();
+    let nd1 = NaiveDate::
+        from_ymd_opt(2016, 02, 4)
+        .unwrap()
+        .and_hms_micro_opt(07, 59, 56, 97)
+        .unwrap()
+        .and_utc()
+        .fixed_offset();
+    println!("{}",nd1>dt);
+                            // checked_add_offset(FixedOffset::east_opt(9 * 3600).unwrap())
+                            // .unwrap().and_utc();
+    // println!("{:?}", nd.time());
+    // // println!("{:?}",pt);
+    // let hour = 3960;
+    // let datetime = FixedOffset::east_opt(5 * hour).unwrap().with_ymd_and_hms(2016, 02, 16, 08, 59, 55).unwrap();
+    // println!("{}",datetime);
+
+    // let dt = FixedOffset::east_opt(5*hour)
+    //                             .unwrap()
+    //                             .with_ymd_and_hms(dt.year(), dt.month(), dt.day(), dt.hour(), dt.minute(), dt.second())
+    //                             .unwrap();
+    
+    // println!("{}",dt);
+
+
+    // let date = "16/02/2011";
+    // let hour = "00:00:00";
+
+    // println!("dt = {:?}", example(date, hour)); // Ok(2018-08-27T11:00:00Z)
+    Ok(())
+}
+
+fn example(date: &str, hour: &str) -> chrono::ParseResult<DateTime<Utc>> {
+    use chrono::format::{self, strftime::StrftimeItems, Parsed};
+
+    // Set up a struct to perform successive parsing into
+    let mut p = Parsed::default();
+
+    // p.
+    // Parse the date information
+    format::parse(&mut p, date.trim(), StrftimeItems::new("%d/%m/%Y"))?;
+    // Parse the time information and provide default values we don't parse
+    format::parse(&mut p, hour.trim(), StrftimeItems::new("%H:%M:%S"))?;
+    // p.minute = Some(0);
+    // p.second = Some(0);
+
+    // Convert parsed information into a DateTime in the Paris timezone
+    let paris_time_zone_offset = FixedOffset::west_opt(5 * 3600).unwrap();
+    let dt = p.to_datetime_with_timezone(&paris_time_zone_offset)?;
+
+
+    // Convert to UTC
+    Ok(dt.with_timezone(&Utc))
+}
