@@ -1,0 +1,60 @@
+Abstract Factory Pattern
+------------------------
+
+It is the factory of the factory design pattern. We will have abstract factory and within that we will have
+factories that will create objects for different classes.
+
+example:
+--------
+
+1. App example
+
+Let's say that we have an app that should be running on all the OS types like windows, linux and mac. 
+
+In our app, there is an UI that have various components like buttons, dropdown menus, lists, texts etc.
+
+Depending on the OS, each UI components will be different from each other as all the OS kernel architecture is different.
+
+So in our example, we will create application with respect to the os type and should be able to run the application in
+all the OS types.
+
+Let's say we want to create appliation to run on windows, then all the UI compoents objects will created for that 
+specific OS type that is windows.
+
+
+┌──────────┐        Interface                                                                                                          
+│ client   │       ┌───────────────┐                                                                                                   
+│          ├──────►│  AppFactory   ├──────────────────────────────────────┐                                                            
+└──────────┘       │               │                                      │                           Interface(abstract ui component) 
+                   │               ┼────────────────┐                     │                         ┌─────────────┐                    
+                   └───────────────┘                │                     │                         │   First     │                    
+                    (abstract fac)                  │                     │                         │    UI       │                    
+                                                    │                     │                         │  Component  │                    
+                                                    │                     │                        ┌►             ◄───┐                
+                                              ┌─────▼──────┐        ┌─────▼───────┐                │└─────────────┘   │                
+                                              │            │        │             │                │                  │                
+                                              │ UILinux    │        │ UIWindows   ┼────────────────┼────────────────┐ │                
+                                              │(concrete   │        │(concrete    │                │                │ │                
+                                              │ factory)   │        │ factory)    │           ┌────┼──────┐        ┌▼─┼────────┐       
+                                              └──┬───────┬─┘        └──────────┬──┘           │           │        │           │       
+                                                 │       │                     │              │ Linux     │        │ Windows   │       
+                                                 │       │                     │              │  Button   │        │   Button  │       
+                                                 │       └─────────────────────┼──────────────►           │        │           │       
+                                                 │                             │              └───────────┘        └───────────┘       
+                                                 │                             │                                                       
+                                                 │                             │                      Interface(abstract ui compoenent)
+                                                 │                             │                    ┌─────────────┐                    
+                                                 │                             │                    │ Second      │                    
+                                                 │                             │                    │    UI       │                    
+                                                 │                             │                    │  Component  │                    
+                                                 │                             │                   ┌►             ◄───┐                
+                                                 │                             │                   │└─────────────┘   │                
+                                                 │                             │                   │                  │                
+                                                 │                             │                   │                  │                
+                                                 │                             └───────────────────┼────────────────┐ │                
+                                                 │                                            ┌────┼──────┐        ┌▼─┼────────┐       
+                                                 │                                            │           │        │           │       
+                                                 │                                            │ Linux     │        │ Windows   │       
+                                                 │                                            │  Menu     │        │   Menu    │       
+                                                 └────────────────────────────────────────────►           │        │           │       
+                                                                                              └───────────┘        └───────────┘       
