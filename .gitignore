@@ -9,6 +9,7 @@ _8_lru_cache/target/*
 _9_SOLID/_[0-9]*/target/*
 _13_*/target/*
 _14_*/target/*
+_11_*/[0-9]*/_[0-9]*/target/*
 //tut
 //tut/_[0-9]+_[a-zA-Z]*/target/*
 //tut/_1_sqlite_example/target/*
