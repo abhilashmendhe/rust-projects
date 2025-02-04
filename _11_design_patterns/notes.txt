@@ -1,0 +1,14 @@
+Creational Patterns
+-------------------
+Instead of creating objects directly, these patterns give more flexibility in how objects come into existence.
+
+Structural Patterns
+------------------- 
+Deals with how objects relate to each other. Think of them as blueprints for building larger strucutres from individual pieces.
+
+Behavioural Patterns
+--------------------
+Handle communication between objects - how they interact and distribute responsibility
+
+
+

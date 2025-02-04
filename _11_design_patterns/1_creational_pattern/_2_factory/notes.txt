@@ -1,0 +1,40 @@
+Factory design pattern
+-----------------------
+
+Factory Method is a creational design pattern that provides an interface for creating objects in a superclass, 
+but allows subclasses to alter the type of objects that will be created.
+
+examples
+--------
+
+1. Tata motors builds both traditional(petrol and diesel) engine cars as well as EV engine cars.
+
+Let's say Tata wants to launch a car that has both petrol/deisel and ev engines.
+
+EV car needs motor and batteries, seats, wheels etc.
+Petrol/Diesel needs engines, seats, wheels etc.
+
+Only diff is the engine types.
+
+Based on some parameters, we can create objects, rather than having if-else conditions.
+
+2. Run a command that runs on either on windows OS or linux OS.
+
+If we pass a linux command, the tool will create an object of a Linux OS, or
+if we pass a win command, the tool will create an object of a windows OS.
+
+
+┌──────────┐        ┌───────────────┐                    ┌────────┐                 
+│ client   │        │   OSFactory   ├────────────────────►        │                 
+│          ├──────► │               │  <<instantiate>>   │   OS   │                 
+└──────────┘        │               │                             │                 
+                    └───────────────┘                ┌──►└────────┘ ◄───┐           
+                                                     │                  │           
+                                                     │                  │           
+                                                     │                  │           
+                                               ┌─────┼──────┐        ┌──┼──────────┐
+                                               │            │        │             │
+                                               │  Linux     │        │ Windows     │
+                                               │            │        │             │
+                                               │            │        │             │
+                                               └────────────┘        └─────────────┘
