@@ -1,0 +1,31 @@
+Strategy Pattern
+----------------
+
+This patterns allows to define diffrent sets of algorithm for the diffrent sub-classes and how we can use them 
+interchangably.
+
+It enables selecting an algorithm at runtime. Instead of implementing a single algorithm directly, code receives 
+runtime instructions as to which in a family of algorithms to use.
+
+examples
+--------
+
+first example
+--------------
+
+1. Suppose we are creating a Navigation app. This apps helps to find path from source to destination.
+2. Now let's say we want to add some features. Like we should get route according to the size of vehicles. Like
+it could be Bus, Truck, Car, Bike or even for pedestrian etc.
+3. The algo is diffrent for each vehicle type. 
+4. There is Strategy required to identify the routes.
+5. The app should give route for diffrent types of vehicles in runtime.
+6. So we won't be just relying on hard-coded or if-else conditions. We will just define a separate Strategy. 
+7. Based on the Strategy defined, the algo will be selected for the vehicle type.
+
+
+second example
+--------------
+
+For mini calculator
+
+1. We have a Strategy interface
