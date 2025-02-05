@@ -1,0 +1,44 @@
+Adapter Pattern
+---------------
+
+Adapter pattern helps to adapt differnt kinds of objects. e.g. different types of interfaces to adapt.
+
+It allows objects with different, ie. incompatible interfaces to work together.
+
+If you for example want to bring an existing class into your system with an interface that doesn’t match any existing 
+interface, and you can not modify this class, you write an adapter class to bridge the gap.
+
+example
+-------
+
+1. Application compatiblity
+
+Let's say you have an app that you are working with. There are also third party applications that you will work with.
+
+You have App(your app) and App1 and App2 are third party applications.
+
+Let's say your App and App1 both work with XML data and App2 works with JSON.
+
+You can bind both App and App1 data due to the format of the data which is XML. But can't do with App2 (JSON data).
+
+Therefore in you App you can have an adapter interface, to adapt the JSON data from App2.
+
+
+2. Uber Food Delivery
+
+We know that uber food delivery app has menus and menus associated with the restaurants. 
+It pickups orders from the restaurant and deliver it to the clients.
+
+Let's say, in the app, there is an 
+a. Item interface and have attributes (name, price, restaurant_name).
+b. FoodItem that implements Item interface.
+c. We have another class UberStore that has list of Items.
+
+d. Let's say in the future, Uber also started deliviering grocery items. Then we need to have GroceryItem interface.
+The attributes are itemName, price, grocery_store.
+
+e. We will have GroceryProduct that implements GroceryItem.
+
+f. We will need GroceryItemAdapter that will implement Item. It will implement Item because GroceryItemAdapter will 
+adapt to Item interface.
+
