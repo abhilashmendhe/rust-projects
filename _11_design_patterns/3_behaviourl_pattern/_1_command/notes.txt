@@ -1,0 +1,35 @@
+Command Pattern
+----------------
+
+Rather than any request directly executed by the business logic, the request is converted into command, and that
+command is executed by the business logic. The command pattern can turn any specific method call into a stand-alone
+object. Means entire request is converted into object, and that object is executed by the business logic.
+
+examples
+---------
+
+first example
+-------------
+
+1. Let's say there is an text editor app. You have different kinds of button with different functionalities.
+2. You have a base Button interface. In this interface you have diferent buttons like Copy, Paste, Open, Save etc. These
+are subclasses.
+3. Let's say you also have a keyboard functionality to copy that is ctrl+c. This is a shorcut way to copy rather than 
+clicking the button to copy the text.
+4. So you have Button and Shortcut class. If you use button, then the button request will be converted into command, 
+and this command is executed by your business layer. Or else if you use shorcut method, then this will be converted
+into command, and this command is executed by your business layer.
+
+Now let's talk about compoenets
+
+a. Command - Any command can be executed. You will create an interface for it, and different commands (concrete
+classes) will be created to have that command executed.
+
+b. Receiever - It's a particular component that a command will be executed on that receiver. Suppose there is 
+command called open_file, then the receiver will be a file itself.
+
+c. Invoker - This component will invoke different request. The invoker holds list of different series of commands 
+that will be executed. It is very helpful becuase it contains commands like redo or undo.
+
+d. Client - This compoenet will be using the invoker that will invoke the commands.
+
