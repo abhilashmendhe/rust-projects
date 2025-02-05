@@ -1,0 +1,28 @@
+Decorator Pattern
+-----------------
+
+This pattern helps to add the behaviour of one object into the special wrapper that will add another behaviour 
+of same object. It's like a box inside a box inside a box inside a box .... so on.
+
+The Decorator Design Pattern is a structural design pattern that allows behavior to be added to 
+individual objects dynamically, without affecting the behavior of other objects from the same class. 
+It involves creating a set of decorator classes that are used to wrap concrete components.
+
+examples
+--------
+
+Let's say you buy a pizza. So we have a Pizza classs, and this Pizza class we have a base Pizza.
+
+From the base pizza you can have different N number of pizzas means you extend to multiple types of pizza classses.
+Like veg pizza, veg pizza + cheese, non-veg pizza, non-veg pizza + cheese, non-veg pizza + cheese + extra tomatoe etc. 
+
+Having multiple classes for vaiety of pizzas is not a feasible option. 
+
+So we can change the behavior (decorate) of the base class instead having multiple classes.
+
+
+1. We have an Pizza interface that anyone can implement. For e.g it has a bake() method.
+2. Then we have BasePizza class that implements Pizza interface.
+3. Now, we have PizzaDecorator class that will implement Pizza interface.
+    a. The constructor will take Pizza interface as an argument.
+4. So on we can have classes to adapt acording the pizza toppings.
