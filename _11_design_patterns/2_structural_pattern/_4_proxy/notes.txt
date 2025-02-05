@@ -1,0 +1,28 @@
+Proxy Design Pattern
+--------------------
+
+The Proxy Design Pattern a structural design pattern is a way to use a placeholder object to control access to 
+another object. Instead of interacting directly with the main object, the client talks to the proxy(class or interface), 
+which then manages the interaction. This is useful for things like controlling access, delaying object creation 
+until it’s needed (lazy initialization), logging, or adding security checks. (definition from geeksforgeeks).
+
+
+examples
+--------
+
+first example
+-------------
+
+1. Consider a Payment interface that has a payment method. 
+2. You can pay via credit card, debit card or do online transaction. 
+3. All the above paying methods are proxies to Cash. Paying by cash can also be a method but you simply
+transfer directly to the shopkeepers account rather than the shopkeeper goes to bank account and depoisit money.
+
+second example
+--------------
+
+1. Suppose you have a BankAccount. You can deposit, withdraw or check_balance method.
+2. You can execute the methods by going directly to the Bank.
+3. What if you want execute all the ops at the ATM? You can certainly do that.
+4. Therefore, the ATM acts as a proxy to the Bank.
+
