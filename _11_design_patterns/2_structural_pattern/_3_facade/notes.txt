@@ -1,0 +1,36 @@
+Facade Design Pattern (https://www.hackingwithrust.net/2023/04/17/design-patterns-in-rust-facade-hiding-a-complex-world/)
+---------------------
+
+This pattern is use to structure an application. Facade is a structural design pattern that provides a simplified 
+interface to a library, a framework, or any other complex set of classes.
+
+(Definition from https://refactoring.guru/design-patterns/facade)
+A facade is a class that provides a simple interface to a complex subsystem which contains lots of moving parts. 
+A facade might provide limited functionality in comparison to working with the subsystem directly. However, 
+it includes only those features that clients really care about.
+
+Having a facade is handy when you need to integrate your app with a sophisticated library that has dozens of 
+features, but you just need a tiny bit of its functionality.
+
+
+examples
+--------
+
+First example
+--------------
+1. Suppose you've a library called videoEncoder that has various encoder like MP4, MOV, AVI, FLV, 3GPP, MPEG4, WebM, 
+MPEGS, and WMV. Your app needs to upload a video on a website with onli MPEG4 format. 
+
+2. You don't need the entire library but just a single MPEG4 format encoder to upload on a website.
+
+3. So, you can use an interafce name AppEncoder that will use the videoEncoder library internally. This interface
+acts as an abtraction layer that will help to allow us to use this library nameed videoEncoder of a particular 
+functionality.
+
+Second example
+--------------
+1. Let's take an example of a food delivery app. Let's consider Uber.
+2. We know that in one click we can order the food but the complex stuff happening behind is taken care 
+by the app.
+3. Here the Uber app is the facade.
+
