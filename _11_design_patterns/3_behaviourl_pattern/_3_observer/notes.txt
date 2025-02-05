@@ -1,0 +1,23 @@
+Observer Pattern
+-----------------
+
+The observer pattern is a software design pattern that allows an object, usually called the subject, 
+to maintain a list of dependents, called observers, and notify them automatically of any state-changes. 
+
+
+examples
+--------
+
+first example
+--------------
+
+1. Suppose there is a news agency and different channels (channel1, channel2, channel3) as well.
+2. News agency are publisher(Observable) and channels are subcribers(observers).
+3. If there is a news available, then the news should be broadcasted to all the channels.
+4. The job of channels are to ask the news agency if there is any news.
+5. In the news agency, we can have a state. So whenever a new news is available, we will go through all the subcribers 
+and notify all of them.
+6. This observable will have all the observers. If any change in the state/object, it will be notified to all the 
+subcribers/obeservers.
+
+
