@@ -1,0 +1,28 @@
+Flyweight Design Pattern
+------------------------
+
+This pattern is used when,
+
+1. No. of object creation is huge.
+2. Object creation is heavy on memory.
+3. Object properties can be divided into intrinsic and extrinsic properties.
+4. Intrinsic: This properties justify that the object is unique.
+5. Extrinsic: This properties is added by the client itself.
+
+
+examples
+--------
+
+first example
+-------------
+
+1. Let's say you are creating shapes. There is an Oval shape, Line shape, Rectangle shape etc.
+2. So when we want to create the shape, we will call he constructor to create the object of the shapes.
+3. If the object creation is taking a lot of time, then we will go with Flyweight design pattern.
+4. We will have an interface name Shape. For this shape, there will be different concrete classes (Oval, Line, Rectangle).
+5. For all of this, there will be a constructor to create objects. But we won't use the constructor to create the object.
+6. Client won't be directly calling the constructor to create the objects. 
+7. We will create a Flyweight factory, and within this factory we will define what type of shape we need. 
+8. Based on the type, we will have one hashmap that will store all the different objects. We won't be creating the
+objects again and again. We will fetch the object from map if available, and if not we will create and store it 
+in the map.
