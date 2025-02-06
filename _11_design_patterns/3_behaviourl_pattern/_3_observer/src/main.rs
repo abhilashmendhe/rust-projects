@@ -35,7 +35,7 @@ impl Channel for NewsChannel {
 // Observable
 struct NewsAgency<'a> {
     news: String,
-    channels: Vec<&'a dyn Channel>
+    channels: Vec<&'a mut dyn Channel>
 }
 
 impl<'a> NewsAgency<'a> {
@@ -47,7 +47,7 @@ impl<'a> NewsAgency<'a> {
     }
 
     // attach
-    fn add_observer(&mut self, channel: &'a dyn Channel) {
+    fn add_observer(&mut self, channel: &'a mut dyn Channel) {
         self.channels.push(channel);
     }
     
@@ -71,9 +71,9 @@ impl<'a> NewsAgency<'a> {
 fn main() {
 
     let mut observable = NewsAgency::new();
-    let observer = NewsChannel::new();
+    let mut observer = NewsChannel::new();
 
-    observable.add_observer(&observer); // adding subscriber in the list of channels
+    observable.add_observer(&mut observer); // adding subscriber in the list of channels
 
     observable.set_news("Terror".to_string());
     println!("{:?}", observer.get_news());
