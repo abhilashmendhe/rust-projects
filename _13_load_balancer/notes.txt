@@ -1,0 +1,49 @@
+Load-Balancer (https://www.youtube.com/watch?v=dBmxNsS3BGE)
+-------------
+
+Load-balancer is a component of distributed systems that distributes the work load across multiple servers that ensures
+high-availibity, responsiveness, and scalability.
+
+There are 2 categories of load balancers (static and dynamic).
+
+Static 
+------
+1. Round robin - It rotates request evenly among N servers. 
+e.g. Let's say there are 3 servers behind the load balancer, server A, server B and server C. The first request will 
+go to server A, then the second will go to server B and the third request will go to server C. The fourth will again 
+go to server A and so on.
+
+But if not monitored, atleast one of the servers may get overloaded with the requests causing disruption of the server.
+
+2. Sticky round robin - Extension of round robin, it sends the subsequent request from same user to the same server. 
+The goal is to improve performance by having related data on the same server. Uneven load may occur since newly arrived 
+users are assigned randomly.
+
+e.g. Let's say there are 2 users alice and bob. There are 3 servers (A, B, C) behind the load balancer. Alice gets the 
+requested data from server A and bob gets the requeste data from server B. 
+
+3. Weighted round robin - Here the operator assigns weights to the servers that are behind the load balancer. The 
+servers with higher weights will propotionaly gets higher requests. This allow us to account for heterogenous server 
+capability. Weights must be manually configured which makes less adaptive in nature. 
+
+4. Hash - Hash based algo uses a hash function that maps the input request to the hash function and the output
+results in mapping the request to the server. The hash func uses client's IP address or requested url input and then
+the output of hash func will determine the route to the servers that are behind the load balancer. 
+
+Selecting optimal hash function is challenging.
+
+Dynamic 
+-------
+
+This adapt in real time by taking active performance metrics when distributing requests.
+
+1. Least connections - Each server behind the load balancer will count the number of requests each time requested.
+Among the servers, if one of them has reached the highest number of counts, then the load balancer will not 
+distribute the request to that server. Instead will figure out, where to distribute the load. 
+
+2. Least time - This alog will distribute request to the server with lowest latency or faster response time. 
+Latency of all the servers behind the load balancer is continiously monitored to make it highly adaptive and 
+reactive. Constant monitoring increases overhead that increases complexity.
+
+Algorithm(least connection, round robin etc.) can be mentioned by client during initialization. 
+
