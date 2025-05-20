@@ -1,50 +1,62 @@
-use std::collections::LinkedList;
+use std::{collections::LinkedList};
 
-use crate::edge::Edge;
+use crate::edges::{edge::Edge, etrait::EdgeTrait};
 
-#[derive(Debug, Clone)]
+
+#[derive(Debug)]
 pub struct Vertex {
-    pub state_id: u32, 
-    pub state_name: String, 
-    pub edge_list: LinkedList<Edge>
+    pub v_id: u32,
+    pub v_name: String,  
+    pub edges: LinkedList<Box<dyn EdgeTrait>>
 }
 
 impl Vertex {
-    pub fn new(state_id: u32, state_name: String) -> Self {
-        Self {
-            state_id,
-            // state_name: state_name.to_lowercase(),
-            state_name,
-            edge_list: LinkedList::new()
+    pub fn new(v_id: u32, v_name: String) -> Self {
+        Vertex { 
+            v_id,
+            v_name, 
+            edges: LinkedList::new()
         }
     }
-
-    pub fn set_id(&mut self, state_id: u32) {
-        self.state_id = state_id;
+    
+    pub fn get_vertex_id(&self) -> u32 {
+        self.v_id
+    }
+    pub fn get_name(&self) -> &String {
+        &self.v_name
+    }
+    pub fn set_name(&mut self, v_name: String) {
+        self.v_name = v_name;
+    }
+    pub fn get_edges(&self) -> &LinkedList<Box<dyn EdgeTrait>> {
+        &self.edges
+    }
+    pub fn set_edges(&mut self, edges: LinkedList<Box<dyn EdgeTrait>>) {
+        self.edges = edges;
     }
 
-    pub fn set_state_name(&mut self, state_name: String) {
-        self.state_name = state_name;
-    }
+    pub fn add_edge(&mut self, dest_id: u32, weight: Option<u32>, edge_type: Edge) {
 
-    pub fn get_id(&self) -> u32 {
-        self.state_id
-    }
+        // Check if already a connection to the destination vertex
+        for ee in self.get_edges() {
+            if ee.get_dest_id() == dest_id {
+                return;
+            }
+        }
 
-    pub fn get_state_name(&self) -> &String {
-        &self.state_name
-    }
+        let mut new_edge = Edge::new(edge_type);
+        new_edge.set_dest_id(dest_id);
+        new_edge.set_weight(weight);
+        self.edges.push_back(new_edge);
+    } 
 
-    pub fn get_edge_list(&self) -> &LinkedList<Edge> {
-        &self.edge_list
-    }
-    pub fn add_edge(&mut self, edge: Edge) {
-        self.edge_list.push_back(edge);
-    }
-}
-
-impl PartialEq for Vertex {
-    fn eq(&self, other: &Self) -> bool {
-        self.get_id() == other.get_id()
+    pub fn delete_edge(&mut self, dest_id: u32) {
+        let mut new_edges: LinkedList<Box<dyn EdgeTrait>> = LinkedList::new();
+        for ee in &self.edges {
+            if ee.get_dest_id() != dest_id {
+                new_edges.push_back(ee.clone_box());
+            }
+        }
+        self.set_edges(new_edges);
     }
 }

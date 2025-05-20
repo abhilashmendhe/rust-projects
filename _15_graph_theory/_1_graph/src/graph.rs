@@ -1,93 +1,111 @@
 use std::fmt::Display;
-
-use crate::{edge::Edge, vertex::Vertex};
+use crate::vertex::Vertex;
+use crate::edges::edge::Edge;
 
 #[derive(Debug)]
 pub struct Graph {
-    pub vertices: Vec<Vertex>
+    pub vertices: Vec<Vertex>,
+    pub edge_type: Edge
 }
 
 impl Graph {
-    pub fn new() -> Self {
-        // let mut vertices = Vertex::new(state_id, state_name)
-        Self {
-            vertices: vec![]
+    pub fn new(etype: Edge) -> Graph {
+        Graph { vertices: vec![], edge_type: etype }
+    }
+
+    pub fn add_vertex(&mut self, v_id: u32, v_name: String) {
+        let v = Vertex::new(v_id, v_name);
+        self.vertices.push(v);
+    }
+
+    pub fn add_edge(&mut self, src_id: u32, dest_id: u32, weight: Option<u32>) {
+
+        if src_id == dest_id {
+            println!("Don't want to create a self loop to a vertex!");
+            return;
+        }
+
+        // Check if the source vertex exists in the graph object
+        if let Some(src_vertex) = self.vertices.iter_mut().find(|v| v.v_id == src_id) {
+
+            src_vertex.add_edge(dest_id, weight, self.edge_type.clone());
+        }
+
+        match &self.edge_type {
+            Edge::DIRECTED_EDGE => {
+                // Not doing anything..
+            },
+
+            Edge::UNDIRECTED_EDGE => {
+
+                // Now adding source to destination
+                if let Some(dest_vertex) = self.vertices.iter_mut().find(|v| v.v_id == dest_id) {
+
+                    dest_vertex.add_edge(src_id, weight, self.edge_type.clone());
+                }
+            },
         }
     }
 
-    pub fn add_vertex(&mut self, vertex: Vertex) {
+    pub fn delete_edge(&mut self, src_id: u32, dest_id: u32) {
 
-        let f: bool = self.vertices.contains(&vertex);
-        if !f {
-            self.vertices.push(vertex);
-        } 
-    }
-
-    pub fn add_edge_by_id(&mut self, id1: u32, id2: u32, weight: i32) {
-
-        let mut v1 = None;
-        let mut v2 = None;
-
-        for v in self.vertices.iter_mut() {
-            if v.get_id() == id1 {
-                v1 = Some(v);
-            } else if v.get_id() == id2 {
-                v2 = Some(v);
-            }
-            if v1.is_some() && v2.is_some() {
-                break; // Exit early when both are found
-            }
-        }
-
-        if let (Some(v1), Some(v2)) = (v1, v2) {
-            let e1 = Edge::new(id1, weight);
-            let e2 = Edge::new(id2, weight);
-
-            if !v1.edge_list.contains(&e2) && !v2.edge_list.contains(&e1) {
-                v1.add_edge(e2);
-                v2.add_edge(e1);
-            } else {
-                println!("Edge already exists between {} and {}", id1, id2);
-            }
-        }
-        // let mut pos_indexes = vec![];
-
-        // for (ind, v) in self.vertices.iter().enumerate() {
-        //     if v.get_id() == id1 || v.get_id() == id2 {
-        //         pos_indexes.push(ind);
-        //     }
-        // }
-        // // println!("{:?}",vertices_exists);
-        // if pos_indexes.len() > 1 {
-
-        //     let (v1, v2) = self.vertices.split_at_mut(*pos_indexes.get(1).unwrap());
-        //     let v1 = &mut v1[*pos_indexes.get(0).unwrap()];
-        //     let v2 = &mut v2[0];
-            
-        //     let e1 = Edge::new(id1, weight);
-        //     let v_e1 = v1.edge_list.contains(&e1);
-
-        //     let e2 = Edge::new(id2, weight);
-        //     let v_e2 = v2.edge_list.contains(&e2);
-        //     // println!()
-        //     if !v_e1 && !v_e2{
-        //         v1.add_edge(e2);
-        //         v2.add_edge(e1);
-        //     } else {
-        //         println!("Edge already exists between {} and {} vertices", id1, id2);
-        //     }
-            
-        // } else {
-        //     println!("One or none of the vertices exists!");
-        // }
+        if let Some(src_vertex) = self.vertices.iter_mut().find(|v| v.v_id == src_id) {
         
+            src_vertex.delete_edge(dest_id);
+        }
+
+        match &self.edge_type {
+            Edge::DIRECTED_EDGE => {
+                // not doing anything
+            },
+            Edge::UNDIRECTED_EDGE => {
+                if let Some(dest_vertex) = self.vertices.iter_mut().find(|v| v.v_id == dest_id) {
+                    dest_vertex.delete_edge(src_id);
+                }
+            },
+        }
+    }
+    pub fn delete_vertex(&mut self, v_id: u32) {
+
+        for v in &mut self.vertices {
+            // self.delete_edge(v.get_vertex_id(), v_id);
+            v.delete_edge(v_id);
+        }
+
+        // should execute at very end
+        self.vertices.retain(|v| v.get_vertex_id() != v_id);
+    }
+    pub fn check_neighbors(&self, src_id: u32, dest_id: u32) {
+        if let Some(v) = self.vertices.iter().find(|v| v.get_vertex_id() == src_id) {
+            for ee in &v.edges {
+                if ee.get_dest_id() == dest_id {
+                    println!("src id: {} and dest id: {} are neighbors.\n", src_id, dest_id);
+                    return;
+                }
+            }
+            println!("Src id: {} and dest id: {} are NOT neighbors.\n", src_id, dest_id);
+        }
+    }
+    pub fn print_neigbors(&self, v_id: u32) {
+        
+        if let Some(v) = self.vertices.iter().find(|v| v.get_vertex_id() == v_id) {
+            print!("{} ({}) -> ", v_id, v.get_name());
+            for ee in &v.edges {
+                print!("{} - ", ee.get_dest_id());
+            }
+            println!();
+        }
     }
 }
 
 impl Display for Graph {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         for v in &self.vertices {
-            println!("{}", v.get_id());
+            print!("{} ({}) -> ", v.get_vertex_id(), v.get_name());
+            for e in  v.get_edges() {        
+                print!("{} - ", e.get_dest_id());
+            }
+            println!();
         }
         write!(f, "{}", "")
     }

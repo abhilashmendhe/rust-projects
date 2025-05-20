@@ -1,99 +1,73 @@
-use std::io::{self, Write};
+use edges::edge::Edge::*;
+use graph::Graph;
 
-use _1_graph::{graph::Graph, vertex::Vertex};
-
-
+pub mod graph;
+pub mod vertex;
+pub mod edges;
 fn main() {
 
-    let mut g = Graph::new();
+    // Create a graph
+    let mut g = Graph::new(UNDIRECTED_EDGE);
 
-    loop {
-        println!("1. Add vertex");
-        println!("2. Update vertex");
-        println!("3. Delete vertex");
-        println!("4. Add edge");
-        println!("5. Update edge");
-        println!("6. Delete edge");
-        println!("7. Check if 2 vertices are neighbors");
-        println!("8. Print all neighbors of a vertex");
-        println!("9. Print graph");
-        println!("10. Clear screen");
-        println!("0. Exit program");
+    // Add vertex to the graph
+    g.add_vertex(1, "Mumbai".to_string());
+    g.add_vertex(2, "Kolkata".to_string());
+    g.add_vertex(3, "Bengaluru".to_string());
+    g.add_vertex(4, "Hyderabad".to_string());
+    g.add_vertex(5, "Delhi".to_string());
+    g.add_vertex(6, "Chennai".to_string());
+    g.add_vertex(7, "Lucknow".to_string());
+    g.add_vertex(8, "Pune".to_string());
+    g.add_vertex(9, "Guwhati".to_string());
+    g.add_vertex(10, "Kochi".to_string());
+    g.add_vertex(11, "Chandigarh".to_string());
 
-        print!("\n> ");
+    // Create an edge between 2 vertices
+    g.add_edge(1, 2, None);
+    g.add_edge(1, 3, None);
+    g.add_edge(1, 5, None);
+    g.add_edge(1, 6, None);
+    g.add_edge(1, 11, None);
+    
+    g.add_edge(2, 7, None);
+    g.add_edge(2, 9, None);
+    g.add_edge(2, 10, None);
+    g.add_edge(2, 5, None);
+    
+    g.add_edge(5, 4, None);
+    g.add_edge(5, 6, None);
+    g.add_edge(5, 7, None);
+    g.add_edge(5, 8, None);
+    g.add_edge(5, 11, None);
+    g.add_edge(5, 10, None);
+    
+    g.add_edge(10, 1, None);
+    g.add_edge(10, 8, None);
+    g.add_edge(10, 3, None);
+    g.add_edge(10, 6, None);
+    
+    // println!("{}",g);
+    // Delete a vertex by id
+    g.delete_vertex(11);
+
+    // Delete an edge or 2-way edge (from src id to dest id)
+    g.delete_edge(5, 1);
+
+    // Check if 2 vertices are neighbors (src id and dest id)
+    g.check_neighbors(2, 1);
+
+    // Print all neigbors of a vertex (pass vertex id)
+    g.print_neigbors(2);
+
+    // println!("{}",g);
+
+    /*  
         io::stdout().flush().unwrap();
-
         // user input 
         let stdin = io::stdin();
         let mut input = String::new();
         stdin.read_line(&mut input).unwrap();
         let input = input.trim().parse::<u8>().unwrap();
-
-        println!("input: {}", input);
-
-        if input == 0 {
-            break;
-        } else if input == 1 {
-            print!("Enter state id: ");
-            io::stdout().flush().unwrap();
-            let stdin = io::stdin();
-            let mut input = String::new();
-            stdin.read_line(&mut input).unwrap();
-            let state_id = input.trim().parse::<u32>().unwrap();
-
-            print!("Enter state name: ");
-            io::stdout().flush().unwrap();
-            let stdin = io::stdin();
-            let mut state_name = String::new();
-            stdin.read_line(&mut state_name).unwrap();
-
-            let v = Vertex::new(state_id, state_name.trim().to_string());
-
-            g.add_vertex(v);
-            
-        } else if input == 2 {
-
-        } else if input == 3 {
-
-        } else if input == 4 {
-
-            print!("Enter ID of the source vertex: ");
-            io::stdout().flush().unwrap();
-            let stdin = io::stdin();
-            let mut input = String::new();
-            stdin.read_line(&mut input).unwrap();
-            let src_id = input.trim().parse::<u32>().unwrap();
-
-            print!("Enter ID of the destination vertex: ");
-            io::stdout().flush().unwrap();
-            let stdin = io::stdin();
-            let mut input = String::new();
-            stdin.read_line(&mut input).unwrap();
-            let dest_id = input.trim().parse::<u32>().unwrap();
-
-            print!("Enter weight: ");
-            io::stdout().flush().unwrap();
-            let stdin = io::stdin();
-            let mut input = String::new();
-            stdin.read_line(&mut input).unwrap();
-            let weight = input.trim().parse::<i32>().unwrap();
-
-            g.add_edge_by_id(src_id, dest_id, weight);
-            
-        } else if input == 5 {
-
-        } else if input == 6 {
-
-        } else if input == 7 {
-
-        } else if input == 8 {
-
-        } else if input == 9 {
-            println!("{:#?}",g);
-            // println!("{}",g);
-        } else if input == 10 {
-            std::process::Command::new("clear").status().unwrap();
-        }
-    }
-    
+    */
 }
+
