@@ -1,0 +1,17 @@
+Prototype Design Pattern
+------------------------
+
+It is a creational design pattern. It is helpful to create different modified objects from the existing object 
+of the same class.
+
+Let's say you have an object p1. You can modify the object p1 and create another object p2.
+
+This design pattern is useful when you've an object which are very heavy to create, then prototype comes to 
+rescue. You can clone the existing object and modify it.
+
+example
+-------
+
+Suppose you want to create object of 2 wheelers and 4 wheelers. 
+
+
