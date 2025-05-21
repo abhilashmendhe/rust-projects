@@ -3,12 +3,13 @@ use super::etrait::EdgeTrait;
 #[derive(Debug, Clone)]
 pub struct UnDirectedEdge {
     pub dest_id: u32,
-    pub weight: Option<u32>
+    pub weight: Option<u32>,
+    visited: bool
 }
 
 impl UnDirectedEdge {
     pub fn new() -> Self {
-        UnDirectedEdge { dest_id: 0, weight: None }
+        UnDirectedEdge { dest_id: 0, weight: None, visited: false }
     }
 }
 
@@ -34,5 +35,8 @@ impl EdgeTrait for UnDirectedEdge{
     }
     fn get_weight(&self) -> Option<u32> {
         self.weight
+    }
+    fn is_visited(&self) -> bool {
+        self.visited
     }
 }

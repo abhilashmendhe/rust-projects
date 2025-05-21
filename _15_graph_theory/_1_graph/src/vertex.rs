@@ -7,7 +7,8 @@ use crate::edges::{edge::Edge, etrait::EdgeTrait};
 pub struct Vertex {
     pub v_id: u32,
     pub v_name: String,  
-    pub edges: LinkedList<Box<dyn EdgeTrait>>
+    pub edges: LinkedList<Box<dyn EdgeTrait>>,
+    pub visited: bool
 }
 
 impl Vertex {
@@ -15,7 +16,8 @@ impl Vertex {
         Vertex { 
             v_id,
             v_name, 
-            edges: LinkedList::new()
+            edges: LinkedList::new(),
+            visited: false
         }
     }
     
@@ -34,7 +36,9 @@ impl Vertex {
     pub fn set_edges(&mut self, edges: LinkedList<Box<dyn EdgeTrait>>) {
         self.edges = edges;
     }
-
+    pub fn is_visited(&self) -> bool {
+        self.visited
+    }
     pub fn add_edge(&mut self, dest_id: u32, weight: Option<u32>, edge_type: Edge) {
 
         // Check if already a connection to the destination vertex
