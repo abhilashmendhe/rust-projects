@@ -1,0 +1,7 @@
+[package]
+name = "_2_dfs"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+_1_graph = {path = "../_1_graph"}
