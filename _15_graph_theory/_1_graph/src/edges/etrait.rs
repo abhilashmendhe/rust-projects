@@ -12,3 +12,9 @@ pub trait EdgeTrait: Debug + Any {
     fn get_weight(&self) -> Option<u32>;
     fn is_visited(&self) -> bool;
 }
+
+impl Clone for Box<dyn EdgeTrait> {
+    fn clone(&self) -> Self {
+        self.clone_box()
+    }
+}

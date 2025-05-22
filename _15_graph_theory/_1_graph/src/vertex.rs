@@ -3,7 +3,7 @@ use std::{collections::LinkedList};
 use crate::edges::{edge::Edge, etrait::EdgeTrait};
 
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Vertex {
     pub v_id: u32,
     pub v_name: String,  

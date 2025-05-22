@@ -2,7 +2,7 @@ use std::fmt::Display;
 use crate::vertex::Vertex;
 use crate::edges::edge::Edge;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Graph {
     pub vertices: Vec<Vertex>,
     pub edge_type: Edge
