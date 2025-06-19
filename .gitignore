@@ -10,6 +10,12 @@ _9_SOLID/_[0-9]*/target/*
 _13_*/target/*
 _14_*/target/*
 _11_*/[0-9]*/_[0-9]*/target/*
+_16_*/target/*
+_15_*/_[0-9]*/target/*
+_17_*/target/*
+_18_*/target/*
+_19_*/target/*
+_[0-9]+_*/_[0-9]*/target/*
 //tut
 //tut/_[0-9]+_[a-zA-Z]*/target/*
 //tut/_1_sqlite_example/target/*
