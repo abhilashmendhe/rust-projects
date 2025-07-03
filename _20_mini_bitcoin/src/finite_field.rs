@@ -20,7 +20,7 @@ impl FieldElement {
 
     pub fn pow_modulo(&self, exponent: isize) -> Self {
         
-        let mut exp = exponent;
+        let mut exp = modulo(exponent, self.prime - 1);
         let mut base = self.number;
         let mut result = 1;
 

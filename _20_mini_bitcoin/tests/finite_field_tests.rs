@@ -56,3 +56,10 @@ fn div_finite_field() {
     let f3 = FieldElement::new(9, 19);
     assert!(f1/f2 == f3);
 }
+
+#[test]
+fn neg_exp_finite_field() {
+    let f1 = FieldElement::new(7, 13);
+    let f2 = FieldElement::new(8, 13);
+    assert!(f1.pow_modulo(-3) == f2);
+}
