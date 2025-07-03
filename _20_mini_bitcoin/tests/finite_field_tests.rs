@@ -36,8 +36,23 @@ fn mul_finite_field() {
 #[test]
 fn exp_finite_field() {
     let f1 = FieldElement::new(2, 5);
-    assert!(f1.pow_modulo(10) == 4);
+    let f2 = FieldElement::new(4, 5);
+    assert!(f1.pow_modulo(10) == f2);
 
-    let f2 = FieldElement::new(3, 23);
-    assert!(f2.pow_modulo(29) == 2);
+    let f3 = FieldElement::new(3, 23);
+    let f4 = FieldElement::new(2, 23);
+    assert!(f3.pow_modulo(29) == f4);
+}
+
+#[test]
+fn div_finite_field() {
+    let f1 = FieldElement::new(2, 19);
+    let f2 = FieldElement::new(7, 19);
+    let f3 = FieldElement::new(3, 19);
+    assert!(f1/f2 == f3);
+
+    let f1 = FieldElement::new(7, 19);
+    let f2 = FieldElement::new(5, 19);
+    let f3 = FieldElement::new(9, 19);
+    assert!(f1/f2 == f3);
 }

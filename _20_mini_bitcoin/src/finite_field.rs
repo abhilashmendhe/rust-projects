@@ -1,4 +1,4 @@
-use std::{fmt::Display, ops::{Add, Mul, Sub}};
+use std::{fmt::Display, ops::{Add, Div, Mul, Sub}};
 
 
 #[derive(Debug, PartialEq, PartialOrd, Eq, Clone)]
@@ -18,7 +18,7 @@ impl FieldElement {
         }
     }
 
-    pub fn pow_modulo(&self, exponent: isize) -> isize {
+    pub fn pow_modulo(&self, exponent: isize) -> Self {
         
         let mut exp = exponent;
         let mut base = self.number;
@@ -34,7 +34,11 @@ impl FieldElement {
             }
             
         }
-        result
+
+        Self {
+            number: result,
+            prime: self.prime
+        }
     }
 }
 
@@ -90,6 +94,34 @@ impl Mul for FieldElement {
             number: fout,
             prime: self.prime
         }
+    }
+}
+
+/*
+    For division, we know that a/b. It can transform to the inverse multiplication i.e; a*b^-1.
+    Since we are taking modulo over the div result, we will use Fermat theorem.
+    The theorem says that:
+                n^(p-1) % p= 1
+    Because div is inverse multiplication, we can reduce to multiplication problem.
+                a / b = a * b^-1
+    From fermat theorem,
+                b ^ (p-1) = 1 
+    Multiply above equation by b^-1 gives,
+                b^-1 = b^(p-2)
+    For e.g. F19 (p=19) is b^-1 = b^17
+    Now we compute the modulo exponential value of b^17
+    The final answer of above modulo exponetial value is equal to b^-1
+*/
+
+impl Div for FieldElement {
+    type Output = Self;
+    fn div(self, rhs: Self) -> Self {
+        if self.prime != rhs.prime {
+            panic!("Two different fields (a & b). Can't perform division");
+        }
+        let exp_value = rhs.pow_modulo(rhs.prime - 2);
+        let fout = self * exp_value;
+        fout
     }
 }
 
