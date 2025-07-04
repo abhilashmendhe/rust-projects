@@ -1,5 +1,7 @@
 use thiserror::Error;
 
+use crate::elliptic_curves::Point;
+
 #[derive(Debug, Error)]
 pub enum BitcoinErrors {
 
@@ -12,8 +14,8 @@ pub enum BitcoinErrors {
     #[error("Finite fields have different primes. Cant perform {}", .0)]
     TwoDiffFiniteFields(String),
 
-    #[error("Point: ({}, {}) is not on curve!", .0, .1)]
-    PointsNotOnCurve(isize, isize)
+    #[error("{} is not on curve!", .0)]
+    PointsNotOnCurve(Point)
 }
 
 
