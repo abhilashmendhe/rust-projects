@@ -1,5 +1,7 @@
 use std::{fmt::Display, ops::{Add, Div, Mul, Sub}};
 
+use crate::errors::BitcoinErrors;
+
 
 #[derive(Debug, PartialEq, PartialOrd, Eq, Clone)]
 pub struct FieldElement {
@@ -8,14 +10,14 @@ pub struct FieldElement {
 }
 
 impl FieldElement {
-    pub fn new(number: isize, prime: isize) -> Self {
-        if number >= prime {
-            panic!("Number {} is not in the field range 0 to {}", number, prime - 1);
+    pub fn new(number: isize, prime: isize) -> Result<Self, BitcoinErrors> {
+        if number < 0 || number >= prime {
+            return Err(BitcoinErrors::FiniteFieldRangeErr { number, prime: prime - 1 });
         }
-        Self {
+        Ok(Self {
             number,
             prime
-        }
+        })
     }
 
     pub fn pow_modulo(&self, exponent: isize) -> Self {
@@ -49,51 +51,51 @@ impl Display for FieldElement {
 }
 
 impl Add for FieldElement {
-    type Output = Self;
-    fn add(self, rhs: Self) -> Self {
+    type Output = Result<Self, BitcoinErrors>;
+    fn add(self, rhs: Self) -> Result<Self, BitcoinErrors> {
         if self.prime != rhs.prime {
-            panic!("Two different fields (a & b). Can't perform addition");
+            return Err(BitcoinErrors::TwoDiffFiniteFields(String::from("Addition")));
         }
         let left = modulo(self.number , self.prime );
         let right = modulo(rhs.number , rhs.prime );
         let fout = modulo(left + right , self.prime );
-        Self {
+        Ok(Self {
             number: fout,
             prime: self.prime
-        }
+        })
     }
 }
 
 impl Sub for FieldElement {
-    type Output = Self;
-    fn sub(self, rhs: Self) -> Self {
+    type Output = Result<Self, BitcoinErrors>;
+    fn sub(self, rhs: Self) -> Result<Self, BitcoinErrors> {
         if self.prime != rhs.prime {
-            panic!("Two different fields (a & b). Can't perform subtraction");
+            return Err(BitcoinErrors::TwoDiffFiniteFields(String::from("Subtraction")));
         }
         let left = modulo(self.number , self.prime );
         let right = modulo(rhs.number , rhs.prime );
 
         let fout = modulo(left - right + self.prime , self.prime );
-        Self {
+        Ok(Self {
             number: fout,
             prime: self.prime
-        }
+        })
     }
 }
 
 impl Mul for FieldElement {
-    type Output = Self;
-    fn mul(self, rhs: Self) -> Self {
+    type Output = Result<Self, BitcoinErrors>;
+    fn mul(self, rhs: Self) -> Result<Self, BitcoinErrors> {
         if self.prime != rhs.prime {
-            panic!("Two different fields (a & b). Can't perform multiplication");
+            return Err(BitcoinErrors::TwoDiffFiniteFields(String::from("Multiplication")))
         }
         let left = modulo(self.number , self.prime );
         let right = modulo(rhs.number , rhs.prime );
         let fout = modulo(left * right , self.prime );
-        Self {
+        Ok(Self {
             number: fout,
             prime: self.prime
-        }
+        })
     }
 }
 
@@ -114,10 +116,10 @@ impl Mul for FieldElement {
 */
 
 impl Div for FieldElement {
-    type Output = Self;
-    fn div(self, rhs: Self) -> Self {
+    type Output = Result<Self, BitcoinErrors>;
+    fn div(self, rhs: Self) -> Result<Self, BitcoinErrors> {
         if self.prime != rhs.prime {
-            panic!("Two different fields (a & b). Can't perform division");
+            return Err(BitcoinErrors::TwoDiffFiniteFields("Division".into()));
         }
         let exp_value = rhs.pow_modulo(rhs.prime - 2);
         let fout = self * exp_value;
