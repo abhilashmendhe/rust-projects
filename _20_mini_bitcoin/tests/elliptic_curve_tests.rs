@@ -34,11 +34,30 @@ fn compare_points() -> Result<(), BitcoinErrors> {
 }
 
 #[test]
-fn add_two_points() -> Result<(), BitcoinErrors> {
-    let p1 = Point::new(Some(2), Some(5), 5, 7)?;
+fn add_two_points_x1_eq_x2_y1_inverse_y2() -> Result<(), BitcoinErrors> {
+    let p1 = Point::new(Some(-1), Some(1), 5, 7)?;
     let p2 = Point::new(Some(-1), Some(-1), 5, 7)?;
-    let p3 = Point::new(Some(3), Some(-7), 5, 7)?;
-    // println!("{}", (p1 + p2)?);
+    let p3 = Point::new(None, None, 5, 7)?;
     assert!((p1+p2)? == p3);
     Ok(())
 }
+
+#[test]
+fn add_two_points_x1_neq_x2() -> Result<(), BitcoinErrors> {
+    let p1 = Point::new(Some(2), Some(5), 5, 7)?;
+    let p2 = Point::new(Some(-1), Some(-1), 5, 7)?;
+    let p3 = Point::new(Some(3), Some(-7), 5, 7)?;
+    assert!((p1+p2)? == p3);
+    Ok(())
+}
+
+#[test]
+fn add_two_points_p1_eq_p2() -> Result<(), BitcoinErrors> {
+    let p1 = Point::new(Some(-1), Some(-1), 5, 7)?;
+    let p2 = Point::new(Some(-1), Some(-1), 5, 7)?;
+    let p3 = Point::new(Some(18), Some(77), 5, 7)?;
+    assert!((p1+p2)? == p3);
+    Ok(())
+}
+
+

@@ -42,16 +42,22 @@ impl Add for Point {
             return Ok(self);
         }
         if self.x == rhs.x {
-            if self.y.is_none() && rhs.y.is_none() {
+            if self.y.is_none() || rhs.y.is_none() {
                 return Point::new(None, None, self.a, self.b);
-            } else if self.y.is_none() {
+            } else if self.x.is_none() {
                 return Ok(rhs)
-            } else if rhs.y.is_none() {
+            } else if rhs.x.is_none() {
                 return Ok(self)
+            } 
+            else if (self.y.unwrap() == -1*rhs.y.unwrap()) || self.y.unwrap() == 0 {
+                return Point::new(None, None, self.a, self.b);
             } else {
-                if self.y.unwrap() == -1*rhs.y.unwrap() {
-                    return Point::new(None, None, self.a, self.b);
-                }
+                let x1 = self.x.unwrap();
+                let y1 = self.y.unwrap();
+                let slope = (3*x1.pow(2) + self.a) / (2*y1);
+                let x3 = slope.pow(2) - (2*x1);
+                let y3 = slope*(x1 - x3) - y1;
+                return Point::new(Some(x3), Some(y3), self.a, self.b);
             }
         }
 
@@ -59,11 +65,10 @@ impl Add for Point {
         let y1 = self.y.unwrap();
         let x2 = rhs.x.unwrap();
         let y2 = rhs.y.unwrap();
+
         let slope = (y2 - y1) / (x2 - x1);
-        
         let x3 = slope.pow(2) - x1 - x2;
         let y3 = slope*(x1 - x3) - y1;
-
         Point::new(Some(x3), Some(y3), self.a, self.b)
     }
 }
