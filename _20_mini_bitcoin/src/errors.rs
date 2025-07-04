@@ -15,7 +15,10 @@ pub enum BitcoinErrors {
     TwoDiffFiniteFields(String),
 
     #[error("{} is not on curve!", .0)]
-    PointsNotOnCurve(Point)
+    PointNotOnCurve(Point),
+
+    #[error("{} and {} are not on the same curve!", .0, .1)]
+    TwoPointsNotOnSameCurve(Point, Point)
 }
 
 
