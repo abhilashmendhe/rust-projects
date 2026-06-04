@@ -75,6 +75,40 @@ impl SkipList {
         }
     }
 
+    pub fn erase(&self, key: i64) -> bool {
+        let mut current = self.head;
+        let mut update = vec![None; self.levels + 1];
+        let mut f = false;
+        unsafe {
+            for i in (0..=self.levels).rev() {
+                while let Some(nnode) = (&(*current.as_ptr()).forward)[i] {
+                    if (*nnode.as_ptr()).key < key {
+                        current = nnode;
+                    } else {
+                        break;
+                    }
+                }
+                update[i] = Some(current);
+                if let Some(nnode) = (&(*current.as_ptr()).forward)[i] {
+                    if (*nnode.as_ptr()).key == key {
+                        // (&(*update[i].as_ptr()).f
+                        if let Some(cr1) = update[i] {
+                            // (&mut (*succ.as_ptr()).forward)[i] = (&(*succ.as_ptr()).forward)[i];
+                            if let Some(cr2) = (&mut (*cr1.as_ptr()).forward)[i] {
+                                if let Some(_cr3) = (&mut (*cr2.as_ptr()).forward)[i] {
+                                    // cr2 = cr3;
+                                    (&mut (*cr1.as_ptr()).forward)[i] = (&mut (*cr2.as_ptr()).forward)[i];
+                                }
+                            }
+                        }
+                        f = true;
+                    }
+                }
+            }
+        }
+        f
+    }
+
     pub fn display(&self) {
         println!("\n*******Skip List********");
         let head = self.head;
