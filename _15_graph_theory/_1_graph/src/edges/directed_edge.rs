@@ -3,7 +3,7 @@ use super::etrait::EdgeTrait;
 #[derive(Debug, Clone)]
 pub struct DirectedEdge {
     dest_id: u32,
-    weight: Option<u32>,
+    weight: Option<i64>,
     visited: bool
 }
 
@@ -34,10 +34,10 @@ impl EdgeTrait for DirectedEdge{
     fn get_dest_id(&self) -> u32 {
         self.dest_id
     }
-    fn set_weight(&mut self, weight: Option<u32>) {
+    fn set_weight(&mut self, weight: Option<i64>) {
         self.weight = weight;
     }
-    fn get_weight(&self) -> Option<u32> {
+    fn get_weight(&self) -> Option<i64> {
         self.weight
     }
     fn is_visited(&self) -> bool {

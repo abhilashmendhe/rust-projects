@@ -18,7 +18,7 @@ impl Graph {
         self.vertices.push(v);
     }
 
-    pub fn add_edge(&mut self, src_id: u32, dest_id: u32, weight: Option<u32>) {
+    pub fn add_edge(&mut self, src_id: u32, dest_id: u32, weight: Option<i64>) {
 
         if src_id == dest_id {
             println!("Don't want to create a self loop to a vertex!");

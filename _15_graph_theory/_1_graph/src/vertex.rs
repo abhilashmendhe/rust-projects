@@ -39,7 +39,7 @@ impl Vertex {
     pub fn is_visited(&self) -> bool {
         self.visited
     }
-    pub fn add_edge(&mut self, dest_id: u32, weight: Option<u32>, edge_type: Edge) {
+    pub fn add_edge(&mut self, dest_id: u32, weight: Option<i64>, edge_type: Edge) {
 
         // Check if already a connection to the destination vertex
         for ee in self.get_edges() {

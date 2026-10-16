@@ -8,8 +8,8 @@ pub trait EdgeTrait: Debug + Any {
 
     fn set_dest_id(&mut self, dest_id: u32);
     fn get_dest_id(&self) -> u32;
-    fn set_weight(&mut self, weight: Option<u32>);
-    fn get_weight(&self) -> Option<u32>;
+    fn set_weight(&mut self, weight: Option<i64>);
+    fn get_weight(&self) -> Option<i64>;
     fn is_visited(&self) -> bool;
 }
 
