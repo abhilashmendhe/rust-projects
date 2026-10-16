@@ -1,0 +1,8 @@
+[package]
+name = "_7_sssp"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+_1_graph = {path="../_1_graph"}
+
