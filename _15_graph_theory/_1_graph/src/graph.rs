@@ -102,8 +102,12 @@ impl Display for Graph {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         for v in &self.vertices {
             print!("{} ({}) -> ", v.get_vertex_id(), v.get_name());
-            for e in  v.get_edges() {        
-                print!("{} - ", e.get_dest_id());
+            for e in  v.get_edges() {      
+                if let Some(ew) = e.get_weight() {
+                    print!("{}[{}] - ", e.get_dest_id(), ew);
+                } else {
+                    print!("{} - ", e.get_dest_id());
+                }
             }
             println!();
         }
