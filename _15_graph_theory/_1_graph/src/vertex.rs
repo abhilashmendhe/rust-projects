@@ -1,26 +1,25 @@
-use std::{collections::LinkedList};
+use std::collections::LinkedList;
 
 use crate::edges::{edge::Edge, etrait::EdgeTrait};
-
 
 #[derive(Debug, Clone)]
 pub struct Vertex {
     pub v_id: u32,
-    pub v_name: String,  
+    pub v_name: String,
     pub edges: LinkedList<Box<dyn EdgeTrait>>,
-    pub visited: bool
+    pub visited: bool,
 }
 
 impl Vertex {
     pub fn new(v_id: u32, v_name: String) -> Self {
-        Vertex { 
+        Vertex {
             v_id,
-            v_name, 
+            v_name,
             edges: LinkedList::new(),
-            visited: false
+            visited: false,
         }
     }
-    
+
     pub fn get_vertex_id(&self) -> u32 {
         self.v_id
     }
@@ -40,7 +39,6 @@ impl Vertex {
         self.visited
     }
     pub fn add_edge(&mut self, dest_id: u32, weight: Option<i64>, edge_type: Edge) {
-
         // Check if already a connection to the destination vertex
         for ee in self.get_edges() {
             if ee.get_dest_id() == dest_id {
@@ -51,8 +49,9 @@ impl Vertex {
         let mut new_edge = Edge::new(edge_type);
         new_edge.set_dest_id(dest_id);
         new_edge.set_weight(weight);
+        new_edge.set_from_id(self.v_id);
         self.edges.push_back(new_edge);
-    } 
+    }
 
     pub fn delete_edge(&mut self, dest_id: u32) {
         let mut new_edges: LinkedList<Box<dyn EdgeTrait>> = LinkedList::new();

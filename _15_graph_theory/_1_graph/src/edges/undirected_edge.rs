@@ -2,18 +2,24 @@ use super::etrait::EdgeTrait;
 
 #[derive(Debug, Clone)]
 pub struct UnDirectedEdge {
+    pub from_id: u32,
     pub dest_id: u32,
     pub weight: Option<i64>,
-    visited: bool
+    visited: bool,
 }
 
 impl UnDirectedEdge {
     pub fn new() -> Self {
-        UnDirectedEdge { dest_id: 0, weight: None, visited: false }
+        UnDirectedEdge {
+            from_id: 0,
+            dest_id: 0,
+            weight: None,
+            visited: false,
+        }
     }
 }
 
-impl EdgeTrait for UnDirectedEdge{
+impl EdgeTrait for UnDirectedEdge {
     fn as_any(&self) -> &dyn std::any::Any {
         self
     }
@@ -23,12 +29,18 @@ impl EdgeTrait for UnDirectedEdge{
     fn clone_box(&self) -> Box<dyn EdgeTrait> {
         Box::new(self.clone())
     }
-    
+
     fn set_dest_id(&mut self, dest_id: u32) {
         self.dest_id = dest_id;
     }
     fn get_dest_id(&self) -> u32 {
         self.dest_id
+    }
+    fn set_from_id(&mut self, from_id: u32) {
+        self.from_id = from_id;
+    }
+    fn get_from_id(&self) -> u32 {
+        self.from_id
     }
     fn set_weight(&mut self, weight: Option<i64>) {
         self.weight = weight

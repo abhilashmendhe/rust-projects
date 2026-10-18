@@ -1,11 +1,10 @@
 use edges::edge::Edge::*;
 use graph::Graph;
 
+pub mod edges;
 pub mod graph;
 pub mod vertex;
-pub mod edges;
 fn main() {
-
     // Create a graph
     let mut g = Graph::new(UNDIRECTED_EDGE);
 
@@ -28,24 +27,24 @@ fn main() {
     g.add_edge(1, 5, None);
     g.add_edge(1, 6, None);
     g.add_edge(1, 11, None);
-    
+
     g.add_edge(2, 7, None);
     g.add_edge(2, 9, None);
     g.add_edge(2, 10, None);
     g.add_edge(2, 5, None);
-    
+
     g.add_edge(5, 4, None);
     g.add_edge(5, 6, None);
     g.add_edge(5, 7, None);
     g.add_edge(5, 8, None);
     g.add_edge(5, 11, None);
     g.add_edge(5, 10, None);
-    
+
     g.add_edge(10, 1, None);
     g.add_edge(10, 8, None);
     g.add_edge(10, 3, None);
     g.add_edge(10, 6, None);
-    
+
     // println!("{}",g);
     // Delete a vertex by id
     g.delete_vertex(11);
@@ -61,13 +60,12 @@ fn main() {
 
     // println!("{}",g);
 
-    /*  
+    /*
         io::stdout().flush().unwrap();
-        // user input 
+        // user input
         let stdin = io::stdin();
         let mut input = String::new();
         stdin.read_line(&mut input).unwrap();
         let input = input.trim().parse::<u8>().unwrap();
     */
 }
-

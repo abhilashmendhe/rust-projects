@@ -2,22 +2,24 @@ use super::etrait::EdgeTrait;
 
 #[derive(Debug, Clone)]
 pub struct DirectedEdge {
+    from_id: u32,
     dest_id: u32,
     weight: Option<i64>,
-    visited: bool
+    visited: bool,
 }
 
 impl DirectedEdge {
     pub fn new() -> Self {
-        Self { 
+        Self {
+            from_id: 0,
             dest_id: 0,
             weight: None,
-            visited: false
+            visited: false,
         }
     }
 }
 
-impl EdgeTrait for DirectedEdge{
+impl EdgeTrait for DirectedEdge {
     fn as_any(&self) -> &dyn std::any::Any {
         self
     }
@@ -33,6 +35,12 @@ impl EdgeTrait for DirectedEdge{
     }
     fn get_dest_id(&self) -> u32 {
         self.dest_id
+    }
+    fn set_from_id(&mut self, from_id: u32) {
+        self.from_id = from_id;
+    }
+    fn get_from_id(&self) -> u32 {
+        self.from_id
     }
     fn set_weight(&mut self, weight: Option<i64>) {
         self.weight = weight;
