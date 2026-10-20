@@ -23,6 +23,16 @@ impl Graph {
         self.vertices.push(v);
     }
 
+    pub fn get_vertex(&self, v_id: u32) -> Option<&Vertex> {
+        // self.vertices.get(v_id as usize)
+        self.vertices.iter().find(|v| v.v_id == v_id)
+    }
+
+    pub fn get_mut_vertex(&mut self, v_id: u32) -> Option<&mut Vertex> {
+        // self.vertices.get_mut(v_id as usize)
+        self.vertices.iter_mut().find(|v| v.v_id == v_id)
+    }
+
     pub fn add_edge(&mut self, src_id: u32, dest_id: u32, weight: Option<i64>) {
         // if src_id == dest_id {
         //     println!("Don't want to create a self loop to a vertex!");

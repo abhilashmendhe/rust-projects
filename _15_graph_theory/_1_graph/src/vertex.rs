@@ -23,6 +23,9 @@ impl Vertex {
     pub fn get_vertex_id(&self) -> u32 {
         self.v_id
     }
+    pub fn set_vertex_id(&mut self, new_v_id: u32) {
+        self.v_id = new_v_id;
+    }
     pub fn get_name(&self) -> &String {
         &self.v_name
     }
