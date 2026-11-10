@@ -1,5 +1,6 @@
 use crate::edges::edge::Edge;
 use crate::vertex::Vertex;
+use std::collections::HashSet;
 use std::fmt::Display;
 
 #[derive(Debug, Clone)]
@@ -108,6 +109,36 @@ impl Graph {
             }
             println!();
         }
+    }
+    pub fn compute_unique_edges(&self) -> HashSet<(i64, u32, u32)> {
+        let mut set_edges = HashSet::new();
+        for v in &self.vertices {
+            for ee in &v.edges {
+                let from = ee.get_from_id();
+                let to = ee.get_dest_id();
+                if let Some(ew) = ee.get_weight() {
+                    if !set_edges.contains(&(ew, from, to)) && !set_edges.contains(&(ew, to, from))
+                    {
+                        set_edges.insert((ew, from, to));
+                    }
+                } else {
+                    if !set_edges.contains(&(i64::MIN, from, to))
+                        && !set_edges.contains(&(i64::MIN, to, from))
+                    {
+                        set_edges.insert((i64::MIN, from, to));
+                    }
+                }
+            }
+        }
+        set_edges
+    }
+    pub fn get_unique_edges(&self) -> Vec<(i64, u32, u32)> {
+        self.compute_unique_edges().into_iter().collect()
+    }
+    pub fn get_unique_edges_sorted(&self) -> Vec<(i64, u32, u32)> {
+        let mut edges = self.compute_unique_edges().into_iter().collect::<Vec<_>>();
+        edges.sort_by_key(|(ew, _, _)| *ew);
+        edges
     }
 }
 
